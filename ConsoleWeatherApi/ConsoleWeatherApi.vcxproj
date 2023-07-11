@@ -128,10 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleWeatherApi.cpp" />
+    <ClCompile Include="DegreeEnums.cpp" />
     <ClCompile Include="WeatherApiClient.cpp" />
+    <ClCompile Include="WeatherInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DegreeEnums.h" />
     <ClInclude Include="WeatherApiClient.h" />
+    <ClInclude Include="WeatherInfo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
