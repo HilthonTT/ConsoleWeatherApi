@@ -11,13 +11,6 @@ private:
 		return size * nmemb;
 	}
 
-	void SetCurlOptions(CURL* curl, std::string jsonResponse, std::string url) {
-		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &jsonResponse);
-	}
-
 public:
 	WeatherApiClient(const std::string& apiKey) : apiKey(apiKey) {
 		curl_global_init(CURL_GLOBAL_DEFAULT);
@@ -33,10 +26,12 @@ public:
 		std::string jsonResponse;
 
 		if (curl) {
-			std::string weatherApiUrl = "http://api.openweathermap.org/data/2.5/weather?q=";
-			std::string url = weatherApiUrl + cityName + "$appid=" + apiKey;
+			std::string url = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
 
-			SetCurlOptions(&curl, jsonResponse, url);
+			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &jsonResponse);
 
 			CURLcode res = curl_easy_perform(curl);
 			if (res != CURLE_OK) {

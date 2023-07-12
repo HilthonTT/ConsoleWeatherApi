@@ -1,5 +1,5 @@
 #include "WeatherInfo.h"
-#include "DegreeEnums.h"
+#include "DegreeEnums.cpp"
 
 
 class WeatherInfo
