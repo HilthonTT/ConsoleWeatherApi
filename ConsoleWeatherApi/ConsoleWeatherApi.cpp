@@ -18,13 +18,33 @@ bool checksIfText(std::string text) {
 
 int main()
 {
-    std::string apiKey = "291dfb57060691b6978a449d8f5dec05";
-    std::string cityName = "";
+    std::string apiKey;
+    std::string cityName;
+    std::string degreeName;
+    Degree degree;
 
     bool validInput = false;
 
-    /*std::cout << "Enter your API Key: ";
-    std::cin >> apiKey;*/
+    std::cout << "Enter your API Key: ";
+    std::cin >> apiKey;
+
+    std::cout << "Which degree type? Celcius, Fahrenheit, Kelvin? ";
+    std::cin >> degreeName;
+
+    std::transform(degreeName.begin(), degreeName.end(), degreeName.begin(),
+        [](unsigned char c) { return std::tolower(c); });
+
+    switch (degreeName[0]) {
+    case 'c':
+        degree = Celcius;
+        break;
+    case 'k':
+        degree = Kelvin;
+        break;
+    case 'f':
+        degree = Fahrenheit;
+        break;
+    }
 
     WeatherApiClient weatherApiClient(apiKey);
 
@@ -50,6 +70,5 @@ int main()
 
     WeatherInfo weatherInfo(jsonData);
 
-    weatherInfo.printWeatherValues(weatherInfo, Celcius);
-
+    weatherInfo.printWeatherValues(weatherInfo, degree);
 }
